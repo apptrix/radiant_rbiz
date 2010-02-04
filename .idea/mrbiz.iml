@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RUBY_MODULE" version="4">
+  <component name="GemRequirementsHolder" version="2">
+    <requirement>
+      <requirement>
+        <dependency name="actionpack" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="vendor/plugins/will_paginate/test/boot.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="activerecord" version="1.15.4.7794" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="vendor/plugins/acts_as_list/test/list_test.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="activerecord" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="vendor/plugins/will_paginate/test/boot.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="rails" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="vendor/plugins/will_paginate/test/boot.rb" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="sqlite3-ruby" version="0" bound="GREATER_OR_EQUAL" />
+      </requirement>
+      <source from="vendor/plugins/will_paginate/test/lib/activerecord_test_connector.rb" />
+    </requirement>
+  </component>
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+

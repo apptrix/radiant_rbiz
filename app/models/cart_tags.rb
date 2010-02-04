@@ -1,5 +1,23 @@
+require 'action_view/helpers/form_tag_helper'
 module CartTags
   include Radiant::Taggable
+  
+  desc 'Embed the authenticity token in an autonomous form input field'
+  tag 'cart:auth_token' do |tag|
+    if !response.session[:_csrf_token]
+      # generate the token
+    token = ActiveSupport::SecureRandom.base64(32)
+      response.session[:_csrf_token] = token
+    else
+      token ||= response.session[:_csrf_token]
+      end
+    "<input type=\"hidden\" value=\"#{token.to_s}\" name=\"authenticity_token\" id=\"authenticity_token\"/>"
+  end
+
+  desc 'Embed the authenticity token in the form'
+  tag 'customer:auth_token' do |tag|
+    "<input type=\"hidden\" value=\"#{response.session[:_csrf_token]}\" name=\"authenticity_token\" id=\"authenticity_token\"/>"
+  end
 
   desc 'Load the cart.  Used in cart controller actions and customer:receipts.'
   tag 'cart' do |tag|
@@ -85,6 +103,24 @@ module CartTags
       tag.expand
     end
   end
+
+  tag 'cart:if_gateway' do |tag|
+    if CartConfig.get(:gateway, :payment) == true
+      #or (CartConfig.get(:http_checkout, :true))
+      tag.expand
+    end
+  end
+  #</r:cart:if_gateway>
+tag 'cart:if_http_checkout' do |tag|
+  if CartConfig.get(:http_checkout, :payment) == true#\
+    tag.expand
+  end
+end
+
+tag 'cart:http_checkout' do |tag|
+  fire = tag.locals.cart.http_checkout("http://#{INSTANCE_CONFIG['sub_domain']}/cart/show")
+  "<a href=\"#{fire}\">Finalize</a>"
+end
 
   desc 'expand if shipping is taxable'
   tag 'cart:if_tax_shipping' do |tag|

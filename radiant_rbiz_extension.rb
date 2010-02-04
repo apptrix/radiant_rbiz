@@ -23,11 +23,11 @@ class RadiantRbizExtension < Radiant::Extension
   def activate
 
     # Add links to header on every page
-    OfficeViewExtender.register '/common/header', :partial => 'office/radiant_nav'
-    OfficeViewExtender.register '/common/header', :partial => 'office/radiant_js'
+    #OfficeViewExtender.register '/common/header', :partial => 'office/radiant_nav'
+    #OfficeViewExtender.register '/common/header', :partial => 'office/radiant_js'
 
-    admin.tabs.add "Cart Office", "/office", :after => "Layouts", :visibility => [:all]
-
+    #admin.tabs.add "Cart Office", "/office", :after => "Layouts", :visibility => [:all]
+    admin.nav[:content] << admin.nav_item(:office, "Cart Office", "/office")#, :after => :pages 
     # Protect from forgery and Radiant's use of ActiveRecordStore don't mix
     # maybe this has changed by 0.6.7 ?
 #    CustomerController.send :skip_before_filter, :verify_authenticity_token
@@ -96,9 +96,10 @@ class RadiantRbizExtension < Radiant::Extension
   end
   
   def deactivate
-    admin.tabs.remove "Cart Office"
-    OfficeViewExtender.unregister '/common/header', :partial => 'office/radiant_nav'
-    OfficeViewExtender.unregister '/common/header', :partial => 'office/radiant_js'
+    #  okeydokey
+    #admin.tabs.remove "Cart Office"
+    #OfficeViewExtender.unregister '/common/header', :partial => 'office/radiant_nav'
+    #OfficeViewExtender.unregister '/common/header', :partial => 'office/radiant_js'
   end
   
 end

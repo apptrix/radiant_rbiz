@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  product: 
+  path: MyString
+  key: MyString
+
+two:
+  product: 
+  path: MyString
+  key: MyString

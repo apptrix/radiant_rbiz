@@ -12,6 +12,17 @@ module CustomerTags
     # no more code here, return from above
   end
 
+  desc 'Embed the authenticity token in an autonomous form input field'
+  tag 'cart:auth_token' do |tag|
+    if !response.session[:_csrf_token]
+    token = ActiveSupport::SecureRandom.base64(32)
+      response.session[:_csrf_token] = token
+    else
+      token ||= response.session[:_csrf_token]
+      end
+    "<input type=\"hidden\" value=\"#{token.to_s}\" name=\"authenticity_token\" id=\"authenticity_token\"/>"
+  end  
+
   desc 'Customer email'
   tag 'customer:email' do |tag|
     tag.locals.customer.email

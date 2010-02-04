@@ -21,7 +21,12 @@ module AddressTags
     tag.expand
   end
 
-  desc 'Name on address label'
+  desc 'Remove the address'
+  tag 'address:delete' do |tag|
+    "<a href='customer/remove_address/#{tag.locals.address.id.to_s}'>remove address</a>"
+  end
+
+    desc 'Name on address label'
   tag 'address:name' do |tag|
     tag.locals.address.display_name
   end

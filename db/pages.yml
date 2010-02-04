@@ -27,7 +27,9 @@
       <br/>
       <r:cart>
         <r:unless_empty>
-          <form action="update_quantities" method="post">  
+          <form action="update_quantities" method="post">
+            <r:cart:auth_token />
+            <h1>Steves Test</h1>
             <table cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <th>Quantity</th>
@@ -91,7 +93,7 @@
           </r:flash:each>
         </p>
       </r:if_flash>
-      
+
       <r:customer:each_address>
         <r:address>
           <p>
@@ -102,17 +104,19 @@
           </p>
         </r:address>
       </r:customer:each_address>
-      
+
       <br/>
       <br/>
-      
+
       <div class="cart">
       <form action="/cart/billing_address_post" method="post">
+      <r:cart:auth_token />
+      <h1>Steves Test</h1>
       <table cellpadding="0" cellspacing="0" border="0" class="cleartable">
         <tbody>
           <tr>
             <td class="right" style="width: 125px"><label for="address_display_name">Name</label></td>
-      
+
             <td><input id="address_display_name" name="address[display_name]" size="30" type="text" /></td>
           </tr>
           <tr>
@@ -121,7 +125,7 @@
           </tr>
           <tr>
             <td class="right" style="width: 125px"><label for="address_street">Street Address</label></td>
-      
+
             <td><input id="address_street" name="address[street]" size="30" type="text" /></td>
           </tr>
           <tr>
@@ -130,7 +134,7 @@
           </tr>
           <tr>
             <td class="right" style="width: 125px"><label for="address_state">State</label></td>
-      
+
             <td>
               <r:address:state_dropdown />
             </td>
@@ -151,8 +155,8 @@
 - - /cart/shipping_address/:
       :published: true
   - body: |
-      <h3>Shipping Address</h3>
-      
+      <r:comment>VERSION=1</r:comment>
+      <h3>Billing Address</h3>
       <r:if_flash>
         <p class="flash">
           <r:flash:each>
@@ -160,26 +164,29 @@
           </r:flash:each>
         </p>
       </r:if_flash>
-      
+
       <r:customer:each_address>
-        <p>
-          <r:address:name /> <br/>
-          <r:address:street /> <br/>
-          <r:address:city />, <r:address:state /> <r:address:zip /> <br />
-          <a href="/cart/ship_to_existing/<r:address:id />"> Ship Here </a>
-        </p>
+        <r:address>
+          <p>
+            <r:name /> <br/>
+            <r:street /> <br/>
+            <r:city />, <r:state /> <r:zip /> <br />
+            <a href="/cart/bill_to_existing/<r:id />"> Bill Here </a>
+          </p>
+        </r:address>
       </r:customer:each_address>
-      
+
       <br/>
       <br/>
-      
+
       <div class="cart">
-      <form action="/cart/shipping_address_post" method="post">
+      <form action="/cart/billing_address_post" method="post">
+      <r:auth_token />
       <table cellpadding="0" cellspacing="0" border="0" class="cleartable">
         <tbody>
           <tr>
             <td class="right" style="width: 125px"><label for="address_display_name">Name</label></td>
-      
+
             <td><input id="address_display_name" name="address[display_name]" size="30" type="text" /></td>
           </tr>
           <tr>
@@ -188,7 +195,7 @@
           </tr>
           <tr>
             <td class="right" style="width: 125px"><label for="address_street">Street Address</label></td>
-      
+
             <td><input id="address_street" name="address[street]" size="30" type="text" /></td>
           </tr>
           <tr>
@@ -197,7 +204,7 @@
           </tr>
           <tr>
             <td class="right" style="width: 125px"><label for="address_state">State</label></td>
-      
+
             <td>
               <r:address:state_dropdown />
             </td>
@@ -208,7 +215,7 @@
           </tr>
           <tr>
             <td class="right" style="width: 125px">&nbsp;</td>
-            <td><input type="submit" value="Continue to Billing" /></td>
+            <td><input type="submit" value="Continue to Review Purchase" /></td>
           </tr>
         </tbody>
       </table>
@@ -245,6 +252,8 @@
         <notextile>
           <r:if_options>
             <form action="/cart/add_to_cart/<r:id />">
+            <r:cart:auth_token />
+            <h1>Steves Test</h1>
               <r:option_dropdowns/>
               <span id="disabled_button_<r:id />" style="cursor:not-allowed">
                 <img src="/images/cart/inactivecart.jpg" alt="Select product options before purchasing" />
@@ -288,6 +297,8 @@
       </div>
       
       <form action="/customer/login_post" method="post">
+      <h1>Steves Test</h1>
+      <r:customer:auth_token />
        <p>
        <label for="user_email">Email</label>
        <br/>
@@ -392,6 +403,8 @@
       
       <r:cart:if_can_add_coupon>
       <form action="/cart/add_coupon" method="post">
+      <r:cart:auth_token />
+      <h1>Steves Test</h1>
       <input type="text" name="coupon[code]" />
       <input type="submit" value="Add Coupon" />
       </form>
@@ -423,7 +436,10 @@
       
       
       <h3>Payment Information</h3>
+      <r:cart:if_gateway>
       <form action="/cart/finalize_post" method="post">
+      <r:cart:auth_token />
+      <h1>Steves Test</h1>
         <p>
       <label for="payment_name">Name on card</label>
       <br/>
@@ -475,4 +491,8 @@
           <input name="commit" type="submit" value="Finalize" />
         </p>
       </form>
+      </r:cart:if_gateway>
+      <r:cart:if_http_checkout>
+      <r:cart:http_checkout />
+      </r:cart:if_http_checkout>
 
