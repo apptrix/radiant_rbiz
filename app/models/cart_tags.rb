@@ -1,7 +1,7 @@
 require 'action_view/helpers/form_tag_helper'
 module CartTags
   include Radiant::Taggable
-  
+  # Enabled authenticity token  
   desc 'Embed the authenticity token in an autonomous form input field'
   tag 'cart:auth_token' do |tag|
     if !response.session[:_csrf_token]
